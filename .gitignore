@@ -8,6 +8,8 @@
 # testing
 /coverage
 
+api.js
+
 # production
 /build
 
