@@ -8,10 +8,10 @@
 # testing
 /coverage
 
-api.js
-
 # production
 /build
+
+api.js
 
 # misc
 .DS_Store
