@@ -2,6 +2,9 @@ import React from 'react';
 import { Accordion, AccordionItem, AccordionItemHeading, AccordionItemButton, AccordionItemPanel } from 'react-accessible-accordion';
 import './forecast.css';
 import { setFavorites, getFavorites } from '../../services/local-storage';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { calculateMititeiPercentage } from '../../services/Herculean-Proportions-Mititei-Success';
 
 const WEEK_DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
@@ -12,18 +15,29 @@ const Forecast = ({ data }) => {
   const handleAddToFavorites = (item, idx) => {
     const favorites = getFavorites();
     const favoriteItem = {
-      day: forecastDays[idx], // Assuming you want to use the forecast day as the favorite day
-      date: item.dt_txt.split(' ')[0], // Update with the actual property name representing the date of the forecast
-      temperature: `${Math.round(item.main.temp_max)}°C / ${Math.round(item.main.temp_min)}°C`, // Update with the actual temperature property
-      icon:  item.weather[0].icon
+      day: forecastDays[idx],
+      date: item.dt_txt,
+      temperature: `${Math.round(item.main.temp_max)}°C / ${Math.round(item.main.temp_min)}°C`,
+      icon: item.weather[0].icon,
+      mititei: calculateMititeiPercentage(item),
     };
-    console.log(item);
-    const updatedFavorites = [...favorites, favoriteItem];
-    setFavorites(updatedFavorites);
+
+    const isItemAlreadyFavorite = favorites.some((favorite) => {
+      return favorite.day === favoriteItem.day && favorite.date === favoriteItem.date && favorite.temperature === favoriteItem.temperature && favorite.icon === favoriteItem.icon;
+    });
+    // console.log(isItemAlreadyFavorite);
+    if (!isItemAlreadyFavorite) {
+      const updatedFavorites = [...favorites, favoriteItem];
+      setFavorites(updatedFavorites);
+      toast.success('Success');
+    } else {
+      toast.error('Nope');
+    }
   };
 
   return (
     <>
+      <ToastContainer position='top-right' autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover={false} theme='colored' />
       <label className='title'>Daily</label>
       <Accordion allowZeroExpanded>
         {data.list
@@ -35,13 +49,12 @@ const Forecast = ({ data }) => {
                   <div className='daily-item'>
                     <img src={`icons/${item.weather[0].icon}.png`} className='icon-small' alt='weather' />
                     <label className='day'>{forecastDays[idx]}</label>
-                    {/* //TODO: mititei */}
-                    <label className='description'>mititei %</label>
+                    <label className='description'>MITITEI {calculateMititeiPercentage(item)}</label>
                     <label className='min-max'>
                       {Math.round(item.main.temp_max)}°C /{Math.round(item.main.temp_min)}°C
                     </label>
+                    <button onClick={(event) => { event.stopPropagation(); handleAddToFavorites(item, idx); }}>Add to Favorites</button>
                   </div>
-                  <button onClick={() => handleAddToFavorites(item, idx)}>Add to Favorites</button>
                 </AccordionItemButton>
               </AccordionItemHeading>
               <AccordionItemPanel>

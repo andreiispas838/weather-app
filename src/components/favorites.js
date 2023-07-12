@@ -1,39 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Accordion, AccordionItem, AccordionItemButton, AccordionItemHeading, AccordionItemPanel } from 'react-accessible-accordion';
 import { getFavorites, setFavorites } from '../services/local-storage';
 
 const Favorites = () => {
-  const favorites = getFavorites();
-
+  const [favoritesArray, setFavoritesArray] = useState(getFavorites());
   const handleRemoveFavorite = (index) => {
-    const updatedFavorites = [...favorites];
+    const updatedFavorites = [...favoritesArray];
     updatedFavorites.splice(index, 1);
-    console.log(updatedFavorites);
-    setFavorites([...updatedFavorites]);
+    setFavorites(updatedFavorites);
+    setFavoritesArray(updatedFavorites);
   };
 
   const handleClearFavorites = () => {
     setFavorites([]);
+    setFavoritesArray([]);
   };
 
   return (
     <div className='favorites'>
       <h1>Favorite Days</h1>
-      {favorites.length > 0 ? (
+      {favoritesArray.length > 0 ? (
         <div>
           <Accordion allowZeroExpanded>
-            {favorites.map((favorite, index) => (
+            {favoritesArray.map((favorite, index) => (
               <AccordionItem key={index}>
                 <AccordionItemHeading>
-                <AccordionItemButton>
-                  <div className='daily-item'>
-                    <img src={`icons/${favorite.icon}.png`} className='icon-small' alt='weather' />
-                    <label className='day'>{favorite.day}</label>
-                                        {/* //TODO: mititei */}
-                    <label className='mititei'> mititei % </label>
-                  </div>
-                    <button onClick={() => handleRemoveFavorite(index)}>Remove</button>
-                </AccordionItemButton>
+                  <AccordionItemButton>
+                    <div className='daily-item'>
+                      <img src={`icons/${favorite.icon}.png`} className='icon-small' alt='weather' />
+                      <label className='day'>{favorite.day}</label>
+                      <label className='mititei'> MITITEI {favorite.mititei} </label>
+                      <button
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          handleRemoveFavorite(index);
+                        }}>
+                        Remove
+                      </button>
+                    </div>
+                  </AccordionItemButton>
                 </AccordionItemHeading>
                 <AccordionItemPanel>
                   <div>
