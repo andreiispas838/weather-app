@@ -1,28 +1,9 @@
 import React, { useState } from 'react';
 import { Accordion, AccordionItem, AccordionItemButton, AccordionItemHeading, AccordionItemPanel } from 'react-accessible-accordion';
 import { getFavorites, setFavorites } from '../services/local-storage';
-import { styled, keyframes } from '@mui/system';
-import { Box, Typography, IconButton } from '@mui/material';
+import { Box, Typography, IconButton, Button } from '@mui/material';
 import BookmarkRemoveIcon from '@mui/icons-material/BookmarkRemove';
-import { getAnimationKeyframes } from '../services/animations.js';
-
-const StyledAccordionItemButton = styled(AccordionItemButton)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(2),
-  backgroundColor: 'transparent',
-  border: 'none',
-  cursor: 'pointer',
-  transition: 'all 0.3s ease-out',
-  '&:hover': {
-    transform: 'scale(1.05)',
-  },
-}));
-
-const StyledMititeiPercentage = styled(Typography)(({ theme, percentage }) => ({
-  animation: `${getAnimationKeyframes(percentage)} 0.8s infinite`,
-}));
-
+import { StyledAccordionItemButton, StyledMititeiPercentage } from './styled';
 
 const Favorites = () => {
   const [favoritesArray, setFavoritesArray] = useState(getFavorites());
@@ -49,16 +30,16 @@ const Favorites = () => {
               <AccordionItem key={index}>
                 <AccordionItemHeading>
                   <StyledAccordionItemButton>
-                    <Box display='flex' alignItems='center' padding={2} borderBottom='1px solid #e0e0e0' transition='background-color 0.3s ease-out' borderRadius={8} width='100%'>
-                      <img src={`icons/${favorite.icon}.png`} className='icon-small' alt='weather' />
-                      <Box flex='1' marginLeft={2}>
-                        <Typography variant='subtitle1' className='day'>
+                    <Box display='flex' alignItems='center' justifyContent='space-between' padding={2} borderBottom='1px solid #e0e0e0' transition='background-color 0.3s ease-out' borderRadius={8} width='100%'>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <img src={`icons/${favorite.icon}.png`} className='icon-small' alt='weather' />
+                        <Typography variant='subtitle1' className='day' style={{ marginLeft: '.7em' }}>
                           {favorite.day}
                         </Typography>
-                        <StyledMititeiPercentage variant='subtitle2' className='mititei'>
-                          MITITEI {favorite.mititei}%
-                        </StyledMititeiPercentage>
-                      </Box>
+                      </div>
+                      <StyledMititeiPercentage variant='subtitle2' className='mititei' percentage={favorite.mititei}>
+                        MITITEI {favorite.mititei}%
+                      </StyledMititeiPercentage>
                       <IconButton
                         onClick={(event) => {
                           event.stopPropagation();
@@ -79,7 +60,9 @@ const Favorites = () => {
               </AccordionItem>
             ))}
           </Accordion>
-          <button onClick={handleClearFavorites}>Clear All Favorites</button>
+          <Button style={{marginTop:'1em'}} variant='contained' onClick={handleClearFavorites}>
+            Clear All Favorites
+          </Button>
         </div>
       ) : (
         <p>No favorite days selected.</p>

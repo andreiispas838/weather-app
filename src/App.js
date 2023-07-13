@@ -47,23 +47,26 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box minHeight='100vh' bgcolor='#F5F5F5' py={4}>
+      <Box minHeight='100vh' bgcolor='#FFFAF4' py={4}>
         <Container maxWidth='md'>
           <Grid container spacing={2} alignItems='center'>
-            <Grid item>
-              <a href=''>
-                <img src={logo} alt='Logo' style={{ width: '100px', height: '100px' }} />
-              </a>
+            <Grid container alignItems='center' justifyContent='space-between'>
+              <Grid item xs={2} md={2}>
+                <a href=''>
+                  <img src={logo} alt='Logo' style={{ width: '100px', height: '100px' }} />
+                </a>
+              </Grid>
+              <Grid item xs={8} md={9}>
+                <Search onSearchChange={handleOnSearchChange} />
+              </Grid>
+              <Grid item xs={2} md={1}>
+                <Box display='flex'>
+                  <Switch color='primary' checked={showFavorites} onChange={handleToggleFavorites} />
+                  <Typography variant='caption'>{showFavorites ? 'Show Forecast' : 'Show Favorites'}</Typography>
+                </Box>
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={6} md={8}>
-              <Search onSearchChange={handleOnSearchChange} />
-            </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <Box textAlign='right'>
-                <Switch color='primary' checked={showFavorites} onChange={handleToggleFavorites} />
-                <Typography variant='caption'>{showFavorites ? 'Show Forecast' : 'Show Favorites'}</Typography>
-              </Box>
-            </Grid>
+
             {currentWeather && (
               <Grid item xs={12} mt={3}>
                 <CurrentWeather data={currentWeather} />

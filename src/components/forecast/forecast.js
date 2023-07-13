@@ -5,26 +5,11 @@ import { setFavorites, getFavorites } from '../../services/local-storage';
 import { calculateMititeiPercentage } from '../../services/Herculean-Proportions-Mititei-Success';
 import 'react-toastify/dist/ReactToastify.css';
 import './forecast.css';
-import { styled } from '@mui/system';
 import { Box, Typography, IconButton } from '@mui/material';
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
-import { getAnimationKeyframes } from '../../services/animations';
-
+import { StyledAccordionItemButton, StyledMititeiPercentage } from '../styled';
 
 const WEEK_DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-
-const StyledAccordionItemButton = styled(AccordionItemButton)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(2),
-  backgroundColor: 'transparent',
-  border: 'none',
-  cursor: 'pointer',
-  transition: 'all 0.3s ease-out',
-  '&:hover': {
-    transform: 'scale(1.05)'
-  },
-}));
 
 const Forecast = ({ data }) => {
   const dayInAWeek = new Date().getDay();
@@ -49,13 +34,13 @@ const Forecast = ({ data }) => {
       setFavorites(updatedFavorites);
       toast.success('🙏🏾 Inshallah brother! ✨');
     } else {
-      toast.error('👹 Nu a fost să fie 👺');
+      toast.error('👹 Not Halal, brother ! 👺');
     }
   };
 
   return (
     <>
-      <ToastContainer position='top-right' autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover={false} theme='light' />
+      <ToastContainer position='bottom-right' autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover={false} theme='light' />
       <Typography variant='h6' className='title'>
         Daily
       </Typography>
@@ -66,14 +51,16 @@ const Forecast = ({ data }) => {
             <AccordionItem key={idx}>
               <AccordionItemHeading>
                 <StyledAccordionItemButton>
-                  <Box display='flex' alignItems='center' padding={2} borderBottom='1px solid #e0e0e0' transition='background-color 0.3s ease-out' borderRadius={8} width='100%'>
-                    <img src={`icons/${item.weather[0].icon}.png`} className='icon-small' alt='weather' />
-                    <Typography variant='subtitle1' className='day'>
-                      {forecastDays[idx]}
-                    </Typography>
-                    <Typography variant='subtitle2' className='description'>
-                      {calculateMititeiPercentage(item)}%
-                    </Typography>
+                  <Box display='flex' alignItems='center' justifyContent='space-between' padding={2} borderBottom='1px solid #e0e0e0' transition='background-color 0.3s ease-out' borderRadius={8} width='100%'>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <img src={`icons/${item.weather[0].icon}.png`} className='icon-small' alt='weather' />
+                      <Typography variant='subtitle1' className='day' style={{marginLeft:'.7em'}}>
+                        {forecastDays[idx]}
+                      </Typography>
+                    </div>
+                    <StyledMititeiPercentage variant='subtitle2' className='mititei' percentage={calculateMititeiPercentage(item)}>
+                      MITITEI {calculateMititeiPercentage(item)}%
+                    </StyledMititeiPercentage>
                     <Typography variant='subtitle1' className='min-max'>
                       {Math.round(item.main.temp_max)}°C / {Math.round(item.main.temp_min)}°C
                     </Typography>

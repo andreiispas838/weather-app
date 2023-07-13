@@ -1,0 +1,19 @@
+First things first..
+
+Logo-ul este creat de mine, utilizand ucraft.com. When clicked, page refreshes.
+
+In materie de API's, am folosit OpenWeatherMap (deoarece la free oferea forecast pe mai multe zile) si GeoDB.
+
+Dupa folosirea searchbar-ului, vor aparea doua componente: current-weather si forecast. Folosind toggle-ul din dreapta searchbar-ului putem schimba intre a vedea forecast-ul sau lista de zile favorite(favorites.js).
+
+In forecast, la apasarea butonului pt. adaugarea la favorite vom primi o notificare (cu ajutorul react-toastify), in functie de rezultatul comenzii. (daca ziua se afla deja in lista de zile favorite: Not Halal, Brother !).
+
+Cand componenta favorites este vizibila, putem elimina din local storage zilele una cate una, sau toate odata, dupa caz.
+
+Predominant, am folosit Material Ui pentru stilizare. (atat pentru components, cat si pt icons).
+
+Formula pt determinarea zilelor "Herculean-Proportions-Mititei-Success" returneaza 0, 25, 50, 75 sau 100, procentual. In functie de acest rezultat, textul din cadrul <StyledMititeiPercentage> va avea o animatie diferita, pentru a crea un HYPE urias in legatura cu mititeii.
+
+Ca upgrades, la extinderea AccordionItem-urilor, o animatie ar imbunatati si UX si UI. De asemenea, ceva ce adauga depth acesteia ar fi de mare folos, schimband complet impactul asupra utilizatorului si ducand la o mai buna distingere a componentelor.
+
+In plus, sunt de parere ca fixarea in partea de sus a paginii a logo-ului, searchbar-ului si butonului ar fi o optimizare corecta si la indemana.
