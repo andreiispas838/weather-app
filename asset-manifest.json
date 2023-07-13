@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/weather-app/static/css/main.70b548bc.css",
+    "main.js": "/weather-app/static/js/main.c5e97de2.js",
+    "static/js/787.b30f2593.chunk.js": "/weather-app/static/js/787.b30f2593.chunk.js",
+    "static/media/mititei-logo.png": "/weather-app/static/media/mititei-logo.471ee4f0942f55eeeeb5.png",
+    "index.html": "/weather-app/index.html",
+    "main.70b548bc.css.map": "/weather-app/static/css/main.70b548bc.css.map",
+    "main.c5e97de2.js.map": "/weather-app/static/js/main.c5e97de2.js.map",
+    "787.b30f2593.chunk.js.map": "/weather-app/static/js/787.b30f2593.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.70b548bc.css",
+    "static/js/main.c5e97de2.js"
+  ]
+}
