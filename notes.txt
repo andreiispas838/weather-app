@@ -1,10 +1,13 @@
 First things first..
+Stilizarea site-ului este una modesta, cu un aer umoristic. Accentul a fost pus pe buna functionare a componentelor, si mai ales pe intelegerea mecanismelor din spatele acestora.
 
 Logo-ul este creat de mine, utilizand ucraft.com. When clicked, page refreshes.
 
-In materie de API's, am folosit OpenWeatherMap (deoarece la free oferea forecast pe mai multe zile) si GeoDB.
+In materie de API's, am folosit OpenWeatherMap (deoarece for free oferea forecast pe mai multe zile) si GeoDB.
 
 Dupa folosirea searchbar-ului, vor aparea doua componente: current-weather si forecast. Folosind toggle-ul din dreapta searchbar-ului putem schimba intre a vedea forecast-ul sau lista de zile favorite(favorites.js).
+
+Componenta current-weather reactioneaza la miscarile cursorului.
 
 In forecast, la apasarea butonului pt. adaugarea la favorite vom primi o notificare (cu ajutorul react-toastify), in functie de rezultatul comenzii. (daca ziua se afla deja in lista de zile favorite: Not Halal, Brother !).
 
